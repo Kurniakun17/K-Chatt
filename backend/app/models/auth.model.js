@@ -1,3 +1,4 @@
+const {isEmail} = require('validator')
 module.exports = mongoose => {
   const AuthSchema = mongoose.Schema({
     username:{
@@ -9,13 +10,17 @@ module.exports = mongoose => {
     },
     email:{
       type: String,
-      required: true,
+      required: [true, 'Email is required'],
       unique: true,
+      validate:{
+        validator: isEmail,
+        message: props => `${props.value} is not a valid email`
+      }
     },
     password:{
       type: String,
       required: true,
-      min: 8
+      min: 6
     }
   })
 
