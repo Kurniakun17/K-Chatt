@@ -25,7 +25,7 @@ export const Register = () => {
   const LoginPhrase = (<p className='text-sm mt-3 text-center'>Already have an account? <Link to={'/login'} className='text-[#00ADB5]'>Login</Link></p>);
 
   const onRegisterSubmit = data => {
-    axios.post('http://localhost:3000/auth/add', {
+    axios.post('http://localhost:3000/auth/register', {
       username: data.Username,
       email: data.Email,
       password: data.Password

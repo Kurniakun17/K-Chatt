@@ -6,5 +6,6 @@ mongoose.set('strictQuery', false)
 module.exports = {
   url: db.url,
   mongoose: mongoose,
-  auth: require('./auth.model')(mongoose)
+  auth: require('./auth.model')(mongoose),
+  messages: require('./messages.model')(mongoose)
 }

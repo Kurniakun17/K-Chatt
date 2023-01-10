@@ -8,30 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export const InputForm = ({FormArr, title, phrase, onSubmit}) => {
   const {register, handleSubmit} = useForm();
-  const navigate = useNavigate();
-
-  // const onHandleSubmit = data => {
-  //   axios.post('http://localhost:3000/auth',{
-  //     username: data.username,
-  //     password: data.password
-  //   }).then(res => res.data)
-  //   .then(data=>{
-  //     if(data.status){
-  //       navigate('/home')
-  //     }else{
-  //       toast.error("Incorrect username or password!",{
-  //         position: "bottom-right",
-  //         autoClose: 2000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "light",
-  //       })
-  //     }
-  //   }).catch(err => console.log(err.message))
-  // }
 
   const CreateInput = ({name, type, minLength}, index) => {
     return(

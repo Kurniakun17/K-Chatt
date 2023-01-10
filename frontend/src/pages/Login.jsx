@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import { InputForm } from '../components/InputForm';
 
 
@@ -23,15 +22,15 @@ export const Login = () => {
   const RegisterPhrase = (<p className='text-sm mt-3 text-center'>Didn't have an account? <Link to={'/register'} className='text-[#00ADB5]'>Register</Link></p>);
 
   const onLoginSubmit = data => {
-    console.log(data)
-    axios.post('http://localhost:3000/auth',{
+    axios.post('http://localhost:3000/auth/login',{
       username: data.Username,
       password: data.Password
+    },{
+      withCredentials: true
     }).then(res => res.data)
     .then(data=>{
-      console.log(data);
       if(data.status){
-        // Toastify successful
+        
         navigate('/home')
       }else{
         // Toastify failed

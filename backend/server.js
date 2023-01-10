@@ -1,15 +1,20 @@
 const express = require('express')
-const db = require('./app/models')
+const db = require('./app/models/index.js')
 const cors = require('cors')
-const routers = express.Router()
+const cookieParser = require('cookie-parser')
 const app = express()
 
 const PORT = process.env.PORT || 3000
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin:["http://localhost:5173"],
+  credentials: true
+}))
+app.use(cookieParser())
 
 app.use('/auth', require('./app/routes/auth.route.js'))
+app.use('/messages', require('./app/routes/messages.route.js'))
 
 const mongooseConfig = {
   useNewUrlParser: true,

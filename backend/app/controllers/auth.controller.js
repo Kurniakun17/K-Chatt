@@ -1,10 +1,13 @@
-const auth = require('../models').auth
-const bcrypt = require('bcrypt')
+require('dotenv').config()
 
-exports.findUser = async(req, res) => {
+const auth = require('../models/index').auth
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+exports.login = async(req, res) => {
   try{
     let { username, password } = req.body
-  
+
     const user = await auth.findOne({username: username})
   
     if(!user){
@@ -12,10 +15,17 @@ exports.findUser = async(req, res) => {
     }
   
     bcrypt.compare(password, user.password, (err, result) => {
+      const maxAge = 2*60*24;
       if(err){
-        res.send(500).send({message: err.message})
+        return res.send(500).send({message: err.message})
       }
       if(result) {
+        const accessToken = jwt.sign({username}, process.env.ACCESS_TOKEN_KEY, {expiresIn: maxAge},)
+        res.cookie("jwt", accessToken, {
+          withCredentials: true,
+          httpOnly: false,
+          maxAge: maxAge*1000
+        })
         return res.send({message:"login sucessfully", status: true})
       }
       return res.send({message: "Incorrect username or password!", status: false})
@@ -25,7 +35,7 @@ exports.findUser = async(req, res) => {
   }
 }
 
-exports.addUser = async(req, res) => {
+exports.register = async(req, res) => {
   const existingUsername = await auth.findOne({username: req.body.username})
   const existingEmail = await auth.findOne({email: req.body.email})
 
@@ -33,6 +43,10 @@ exports.addUser = async(req, res) => {
     const {password} = req.body
   
     bcrypt.hash(password, 10, (err, hash)=>{
+      if(err){
+        res.status(401).send({message: err.message})
+      }
+
       req.body.password = hash
       
       auth.create(req.body)
@@ -51,7 +65,6 @@ exports.addUser = async(req, res) => {
   }
 }
 
-exports.getData = (req, res) => {
-  auth.find().then(data => res.send({data: data}))
-  .catch(err => res.status(500).send({message: err.message}))
+exports.validateToken = (req, res) => {
+  const {token}
 }
