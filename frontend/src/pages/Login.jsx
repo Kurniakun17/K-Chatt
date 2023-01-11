@@ -2,10 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { InputForm } from '../components/InputForm';
+import { useEffect } from 'react';
+import {useCookies} from 'react-cookie';
+import { verifyToken } from '../utils';
 
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [cookies, setCookies, removeCookies]= useCookies();
+  useEffect(()=>{
+    verifyToken(cookies, removeCookies, navigate);
+  },[])
+
   const FormArr = [
     {
       name: "Username",
@@ -19,7 +27,7 @@ export const Login = () => {
     },
   ]
 
-  const RegisterPhrase = (<p className='text-sm mt-3 text-center'>Didn't have an account? <Link to={'/register'} className='text-[#00ADB5]'>Register</Link></p>);
+  const RegisterPhrase = (<p className='text-sm mt-5 text-center '>Didn't have an account? <Link to={'/register'} className='text-[#00ADB5]'>Register</Link></p>);
 
   const onLoginSubmit = data => {
     axios.post('http://localhost:3000/auth/login',{

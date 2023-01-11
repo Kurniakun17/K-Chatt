@@ -65,6 +65,16 @@ exports.register = async(req, res) => {
   }
 }
 
-exports.validateToken = (req, res) => {
-  const {token}
+exports.validateToken = (req, res, next) => {
+  const token = req.cookies.jwt
+  if(token){
+    jwt.verify(token, process.env.ACCESS_TOKEN_KEY, async(err, decodedToken) => {
+      if(err){
+        return res.send({status:false, message: err.message})
+      }
+      return res.send({status: true, username: decodedToken.username})
+    })
+  }else{
+    return res.send({status: false})
+  }
 }

@@ -19,7 +19,7 @@ export const InputForm = ({FormArr, title, phrase, onSubmit}) => {
   } 
 
   return(
-    <div className='m-auto my-14 mx-14 max-w-[75%]'>
+    <div className='m-auto mt-14 mb-8 mx-14 max-w-[75%]'>
       <form className='flex flex-col gap-2'onSubmit={handleSubmit(onSubmit)}>
         <h1 className='text-4xl text-[#00ADB5] font-bold text-center mb-4'>{title}</h1>
         {FormArr.map((data, index)=>CreateInput(data, index))}

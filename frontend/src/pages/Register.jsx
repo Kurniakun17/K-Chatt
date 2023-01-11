@@ -22,7 +22,8 @@ export const Register = () => {
       minLength: 6
     },
   ]
-  const LoginPhrase = (<p className='text-sm mt-3 text-center'>Already have an account? <Link to={'/login'} className='text-[#00ADB5]'>Login</Link></p>);
+
+  const LoginPhrase = (<p className='text-sm mt-5 text-center'>Already have an account? <Link to={'/login'} className='text-[#00ADB5]'>Login</Link></p>);
 
   const onRegisterSubmit = data => {
     axios.post('http://localhost:3000/auth/register', {
@@ -38,7 +39,6 @@ export const Register = () => {
         // Toastify failed!
       }
     })
-    console.log(data)
   }
 
   return (
