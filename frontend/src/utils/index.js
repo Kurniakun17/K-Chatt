@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export const verifyToken = async (cookies, removeCookies, navigate) => {
-  console.log("verify token triggered")
   if(cookies.jwt){
     const res = await axios.post('http://localhost:3000/auth/validatetoken', {}, {withCredentials:true})
     if(res.data.status){
@@ -9,5 +8,5 @@ export const verifyToken = async (cookies, removeCookies, navigate) => {
     }
     removeCookies('jwt')
   }
-  return navigate('/login')
+  return undefined
 }

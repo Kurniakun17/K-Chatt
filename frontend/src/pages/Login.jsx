@@ -10,8 +10,15 @@ import { verifyToken } from '../utils';
 export const Login = () => {
   const navigate = useNavigate();
   const [cookies, setCookies, removeCookies]= useCookies();
+
   useEffect(()=>{
-    verifyToken(cookies, removeCookies, navigate);
+    const verify = async () => {
+      const data = await verifyToken(cookies, removeCookies, navigate);
+      if(data){
+        navigate('/home')
+      }
+    }
+    verify()
   },[])
 
   const FormArr = [
@@ -38,7 +45,6 @@ export const Login = () => {
     }).then(res => res.data)
     .then(data=>{
       if(data.status){
-        
         navigate('/home')
       }else{
         // Toastify failed

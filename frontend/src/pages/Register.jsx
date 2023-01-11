@@ -1,10 +1,25 @@
 import axios from 'axios'
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { InputForm } from '../components/InputForm'
+import { useCookies } from 'react-cookie' 
+import { verifyToken } from '../utils'
+
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [cookies, setCookies, removeCookies]= useCookies();
+
+  useEffect(()=>{
+    const verify = async () => {
+      const data = await verifyToken(cookies, removeCookies, navigate);
+      if(data){
+        navigate('/home')
+      }
+    }
+    verify()
+  },[])
+
   const FormArr = [
     {
       name: "Username",
