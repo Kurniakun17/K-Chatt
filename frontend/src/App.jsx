@@ -3,6 +3,8 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +18,7 @@ function App() {
         <Route exact path='/register' element={<Register/>}></Route>
         <Route exact path='*' element={<Login></Login>}></Route>
       </Routes>
+      <ToastContainer/>
     </div>
   )
 }

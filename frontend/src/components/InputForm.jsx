@@ -3,8 +3,6 @@ import {useForm} from 'react-hook-form'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
 export const InputForm = ({FormArr, title, phrase, onSubmit}) => {
   const {register, handleSubmit} = useForm();
 
@@ -22,7 +20,7 @@ export const InputForm = ({FormArr, title, phrase, onSubmit}) => {
       <form className='flex flex-col gap-2'onSubmit={handleSubmit(onSubmit)}>
         <h1 className='text-4xl text-[#00ADB5] font-bold text-center mb-4'>{title}</h1>
         {FormArr.map((data, index)=>CreateInput(data, index))}
-        <button className='py-2 px-2 mt-3 text-md font-medium border border-slate-700 rounded-md hover:text-white hover:bg-[#00ADB5] hover:ease-in' type='submit'>Submit</button>
+        <button className='py-2 px-2 mt-3 bg-[#00ADB5] text-md text-white font-bold border border-slate-700 rounded-md hover:text-[#00ADB5] hover:bg-white hover:ease-in' type='submit'>Submit</button>
       </form>
       {phrase}
     </div>

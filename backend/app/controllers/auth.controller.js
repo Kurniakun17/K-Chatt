@@ -9,11 +9,11 @@ exports.login = async(req, res) => {
     let { username, password } = req.body
 
     const user = await auth.findOne({username: username})
-  
+
     if(!user){
       return res.status(401).send({message: "Incorrect username or password!", status: false})
     }
-  
+
     bcrypt.compare(password, user.password, (err, result) => {
       const maxAge = 2*60*24;
       if(err){
@@ -28,7 +28,7 @@ exports.login = async(req, res) => {
         })
         return res.send({message:"login sucessfully", status: true})
       }
-      return res.send({message: "Incorrect username or password!", status: false})
+      return res.status(401).send({message: "Incorrect username or password!", status: false})
     })
   }catch(err){
     res.status(401).send(err.message)
@@ -46,11 +46,9 @@ exports.register = async(req, res) => {
       if(err){
         res.status(401).send({message: err.message})
       }
-
       req.body.password = hash
-      
       auth.create(req.body)
-        .then(()=>res.send({message: "account succesfully created!", status: true}))
+        .then(()=>res.send({message: "Account succesfully created!", status: true}))
         .catch(err => res.status(500).send({message: err.message, status: false}))
         return
     })

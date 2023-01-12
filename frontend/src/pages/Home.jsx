@@ -8,7 +8,6 @@ import {useNavigate} from 'react-router-dom'
 import { Profile } from '../components/Profile'
 import { verifyToken } from '../utils'
 import {io} from 'socket.io-client'
-import { useRef } from 'react'
 
 export const Home = () => {
   const [user, setUser] = useState();
